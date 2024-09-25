@@ -5,5 +5,6 @@ class AppImages {
     String mtn = 'assets/images/mtn.png';
     String person = 'assets/images/person.png';
     String schedule = 'assets/images/Schedule.png';
+    String send = 'assets/images/send.png';
     String settings = 'assets/images/settings.png';
 }
