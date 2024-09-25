@@ -14,7 +14,7 @@ class HistoryScreen extends StatefulWidget {
 }
 
 class _HistoryScreenState extends State<HistoryScreen> {
-  int _currentSegment = 0;
+  int _currentSegment = 0; 
 
   @override
   Widget build(BuildContext context) {
@@ -27,18 +27,16 @@ class _HistoryScreenState extends State<HistoryScreen> {
           Column(
             children: [
               SizedBox(
-                height: height * 0.025,
+                height: height * 0.025, 
               ),
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 5.0, horizontal: 16.0),
+                padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 16.0),
                 child: CustomSlidingSegmentedControl<int>(
                   height: 50,
-                  fixedWidth: width * 0.45,
+                  fixedWidth: width * 0.45, 
                   children: const {
                     0: Text('History', style: TextStyle(fontSize: 18)),
-                    1: Text('Transaction Summary',
-                        style: TextStyle(fontSize: 18)),
+                    1: Text('Transaction Summary', style: TextStyle(fontSize: 18)),
                   },
                   decoration: BoxDecoration(
                     color: const Color.fromARGB(101, 229, 229, 234),
@@ -50,28 +48,28 @@ class _HistoryScreenState extends State<HistoryScreen> {
                   ),
                   onValueChanged: (index) {
                     setState(() {
-                      _currentSegment = index;
+                      _currentSegment = index; 
                     });
                   },
                 ),
               ),
               SizedBox(height: height * 0.01),
               const Divider(),
-              const TopBar(), 
+              const TopBar(),
               SizedBox(height: height * 0.01),
               Expanded(
-                child:
-                    _currentSegment == 0 ? historyList() : transactionSummary(),
+                child: _currentSegment == 0 ? historyList() : transactionSummary(), // Conditionally renders history or transaction summary
               ),
             ],
           ),
-          const FloatButton(),
+          const FloatButton(), 
         ],
       ),
     );
   }
 
   Widget historyList() {
+    // Sort transactions by date in descending order
     transactions.sort((a, b) => parseDate(b.date).compareTo(parseDate(a.date)));
 
     // Group transactions by date
@@ -83,8 +81,9 @@ class _HistoryScreenState extends State<HistoryScreen> {
       groupedTransactions[transaction.date]?.add(transaction);
     }
 
-   List<Widget> transactionWidgets = [];
+    List<Widget> transactionWidgets = [];
     groupedTransactions.forEach((date, transactions) {
+      // Adds a date header for each group of transactions
       transactionWidgets.add(
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
@@ -97,7 +96,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
               borderRadius: BorderRadius.circular(12),
             ),
             child: Text(
-              date,
+              date, 
               style: const TextStyle(
                 color: Colors.grey,
                 fontWeight: FontWeight.bold,
@@ -106,6 +105,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
           ),
         ),
       );
+      // Adds the transactions for the given date
       transactionWidgets.addAll(
         transactions
             .map((transaction) => TransactionCard(transaction: transaction))
@@ -114,10 +114,9 @@ class _HistoryScreenState extends State<HistoryScreen> {
     });
 
     return ListView(
-      children: transactionWidgets,
+      children: transactionWidgets, // Returns the list of transactions grouped by date
     );
   }
-
 
   Widget transactionSummary() {
     return const Center(
