@@ -4,6 +4,7 @@ import 'package:hubtel_coding_challenge_repo/screens/home_screen.dart';
 import 'package:hubtel_coding_challenge_repo/screens/send_screen.dart';
 import 'package:hubtel_coding_challenge_repo/screens/history_screen.dart';
 import 'package:hubtel_coding_challenge_repo/screens/schedule_screen.dart';
+import 'package:hubtel_coding_challenge_repo/widgets/bottom_button.dart';
 
 class BottomNavigator extends StatefulWidget {
   const BottomNavigator({super.key});
@@ -39,10 +40,11 @@ class _BottomNavigatorState extends State<BottomNavigator> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
+              // Home Icon (Retained Logic for Home)
               GestureDetector(
                 onTap: () {
                   setState(() {
-                    _currentIndex = 0; 
+                    _currentIndex = 0;
                   });
                 },
                 child: Column(
@@ -57,74 +59,52 @@ class _BottomNavigatorState extends State<BottomNavigator> {
                             : Colors.transparent,
                         shape: BoxShape.circle,
                       ),
-                      child: Image.asset(AppImages().home,
-                          width: iconSize, height: iconSize),
+                      child: Image.asset(
+                        AppImages().home,
+                        width: iconSize,
+                        height: iconSize,
+                      ),
                     ),
                   ],
                 ),
               ),
               const VerticalDividerWidget(),
-              GestureDetector(
+
+              BottomNavItem(
+                label: "Send",
+                imagePath: AppImages().send,
+                index: 1,
+                currentIndex: _currentIndex,
                 onTap: () {
                   setState(() {
-                    _currentIndex = 1; 
+                    _currentIndex = 1;
                   });
                 },
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Image.asset(AppImages().send,
-                        width: iconSize, height: iconSize, color: _currentIndex == 1 ? Colors.black : Colors.grey),
-                    const SizedBox(height: 4),
-                    Text("Send",
-                        style: TextStyle(
-                            color: _currentIndex == 1
-                                ? Colors.black
-                                : Colors.grey)),
-                  ],
-                ),
+                iconSize: iconSize,
               ),
-              GestureDetector(
+              BottomNavItem(
+                label: "History",
+                imagePath: AppImages().history,
+                index: 2,
+                currentIndex: _currentIndex,
                 onTap: () {
                   setState(() {
-                    _currentIndex = 2; 
+                    _currentIndex = 2;
                   });
                 },
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Image.asset(AppImages().history,
-                        width: iconSize, height: iconSize, color: _currentIndex == 2
-                                ? Colors.black
-                                : Colors.grey),
-                    const SizedBox(height: 4),
-                    Text("History",
-                        style: TextStyle(
-                            color: _currentIndex == 2
-                                ? Colors.black
-                                : Colors.grey)),
-                  ],
-                ),
+                iconSize: iconSize,
               ),
-              GestureDetector(
+              BottomNavItem(
+                label: "Scheduled",
+                imagePath: AppImages().schedule,
+                index: 3,
+                currentIndex: _currentIndex,
                 onTap: () {
                   setState(() {
-                    _currentIndex = 3; 
+                    _currentIndex = 3;
                   });
                 },
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Image.asset(AppImages().schedule,
-                        width: iconSize, height: iconSize, color: _currentIndex == 3 ? Colors.black : Colors.grey),
-                    const SizedBox(height: 4),
-                    Text("Scheduled",
-                        style: TextStyle(
-                            color: _currentIndex == 3
-                                ? Colors.black
-                                : Colors.grey)),
-                  ],
-                ),
+                iconSize: iconSize,
               ),
             ],
           ),

@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:custom_sliding_segmented_control/custom_sliding_segmented_control.dart';
+import 'package:hubtel_coding_challenge_repo/model/transations_model.dart';
+import 'package:hubtel_coding_challenge_repo/shared/helpers.dart';
+import 'package:hubtel_coding_challenge_repo/widgets/float_button.dart';
+import 'package:hubtel_coding_challenge_repo/widgets/top_bar.dart';
+import 'package:hubtel_coding_challenge_repo/widgets/transaction_card.dart';
 
 class HistoryScreen extends StatefulWidget {
   const HistoryScreen({super.key});
 
   @override
-  _HistoryScreenState createState() => _HistoryScreenState();
+  createState() => _HistoryScreenState();
 }
 
 class _HistoryScreenState extends State<HistoryScreen> {
@@ -13,62 +18,110 @@ class _HistoryScreenState extends State<HistoryScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final double width = MediaQuery.of(context).size.width;
+    final double height = MediaQuery.of(context).size.height;
+
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Transaction History'),
-        backgroundColor: Colors.white,
-        elevation: 0,
-      ),
-      body: Column(
+      body: Stack(
         children: [
-          Padding(
-            padding:
-                const EdgeInsets.symmetric(vertical: 10.0, horizontal: 16.0),
-            child: CustomSlidingSegmentedControl<int>(
-              height: 50,
-              children: const {
-                0: Text('History'),
-                1: Text('Transaction Summary'),
-              },
-              onValueChanged: (index) {
-                setState(() {
-                  _currentSegment = index;
-                });
-              },
-            ),
+          Column(
+            children: [
+              SizedBox(
+                height: height * 0.025,
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 5.0, horizontal: 16.0),
+                child: CustomSlidingSegmentedControl<int>(
+                  height: 50,
+                  fixedWidth: width * 0.45,
+                  children: const {
+                    0: Text('History', style: TextStyle(fontSize: 18)),
+                    1: Text('Transaction Summary',
+                        style: TextStyle(fontSize: 18)),
+                  },
+                  decoration: BoxDecoration(
+                    color: const Color.fromARGB(101, 229, 229, 234),
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  thumbDecoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(14),
+                  ),
+                  onValueChanged: (index) {
+                    setState(() {
+                      _currentSegment = index;
+                    });
+                  },
+                ),
+              ),
+              SizedBox(height: height * 0.01),
+              const Divider(),
+              const TopBar(), 
+              SizedBox(height: height * 0.01),
+              Expanded(
+                child:
+                    _currentSegment == 0 ? historyList() : transactionSummary(),
+              ),
+            ],
           ),
-          Expanded(
-            child: _currentSegment == 0
-                ? _buildHistoryList()
-                : _buildTransactionSummary(),
-          ),
+          const FloatButton(),
         ],
       ),
     );
   }
 
-  Widget _buildHistoryList() {
+  Widget historyList() {
+    transactions.sort((a, b) => parseDate(b.date).compareTo(parseDate(a.date)));
+
+    // Group transactions by date
+    Map<String, List<Transaction>> groupedTransactions = {};
+    for (var transaction in transactions) {
+      if (!groupedTransactions.containsKey(transaction.date)) {
+        groupedTransactions[transaction.date] = [];
+      }
+      groupedTransactions[transaction.date]?.add(transaction);
+    }
+
+   List<Widget> transactionWidgets = [];
+    groupedTransactions.forEach((date, transactions) {
+      transactionWidgets.add(
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+          width: double.infinity,
+          alignment: Alignment.centerLeft,
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            decoration: BoxDecoration(
+              color: const Color(0xffE6EAED),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Text(
+              date,
+              style: const TextStyle(
+                color: Colors.grey,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ),
+      );
+      transactionWidgets.addAll(
+        transactions
+            .map((transaction) => TransactionCard(transaction: transaction))
+            .toList(),
+      );
+    });
+
     return ListView(
-      children: const [
-        ListTile(
-          leading: Icon(Icons.account_circle),
-          title: Text("Emmanuel Rockson"),
-          subtitle: Text("Personal • GHS 500"),
-          trailing: Text("Successful"),
-        ),
-        ListTile(
-          leading: Icon(Icons.account_circle),
-          title: Text("Absa Bank"),
-          subtitle: Text("Other • GHS 500"),
-          trailing: Text("Failed"),
-        ),
-      ],
+      children: transactionWidgets,
     );
   }
 
-  Widget _buildTransactionSummary() {
+
+  Widget transactionSummary() {
     return const Center(
-      child: Text("Transaction Summary will be displayed here."),
+      child: Text("Transaction Summary."),
     );
   }
 }

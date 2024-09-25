@@ -9,14 +9,14 @@ class BottomNavItem extends StatelessWidget {
   final double iconSize;
 
   const BottomNavItem({
-    Key? key,
+    super.key,
     required this.label,
     required this.imagePath,
     required this.index,
     required this.currentIndex,
     required this.onTap,
     required this.iconSize,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
