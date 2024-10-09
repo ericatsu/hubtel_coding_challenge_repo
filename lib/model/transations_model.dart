@@ -29,8 +29,8 @@ class Transaction {
 List<Transaction> transactions = [
   Transaction(
       imagePath: AppImages().mtn,
-      name: 'Kwabena Uncle Ebo',
-      time: '14:45',
+      name: 'Emmanuel Rockson Kwabena Uncle Ebo',
+      time: '14:45PM',
       status: 'Successful',
       transactionType: 'Personal',
       referenceMessage: 'Cool your heart wai',
@@ -42,7 +42,7 @@ List<Transaction> transactions = [
   Transaction(
       imagePath: AppImages().absabank,
       name: 'Absa Bank',
-      time: '14:45',
+      time: '14:45PM',
       status: 'Failed',
       transactionType: 'Personal',
       amount: '600',
@@ -52,7 +52,7 @@ List<Transaction> transactions = [
   Transaction(
       imagePath: AppImages().mtn,
       name: 'Emmanuel Rockson',
-      time: '14:45',
+      time: '14:45PM',
       status: 'Failed',
       transactionType: 'Other',
       amount: '300',
@@ -62,7 +62,7 @@ List<Transaction> transactions = [
   Transaction(
       imagePath: AppImages().mtn,
       name: 'Absa Bank',
-      time: '14:45',
+      time: '14:45PM',
       status: 'Failed',
       amount: '500',
       transactionType: 'Other',
@@ -71,7 +71,7 @@ List<Transaction> transactions = [
       Transaction(
       imagePath: AppImages().mtn,
       name: 'Kwabena Uncle Ebo',
-      time: '14:45',
+      time: '14:45PM',
       status: 'Successful',
       transactionType: 'Personal',
       referenceMessage: 'Cool your heart wai',
@@ -82,7 +82,7 @@ List<Transaction> transactions = [
   Transaction(
       imagePath: AppImages().absabank,
       name: 'Absa Bank',
-      time: '14:45',
+      time: '14:45PM',
       status: 'Failed',
       transactionType: 'Personal',
       amount: '600',

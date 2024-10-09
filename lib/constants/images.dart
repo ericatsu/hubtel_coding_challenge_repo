@@ -7,4 +7,5 @@ class AppImages {
     String schedule = 'assets/images/Schedule.png';
     String send = 'assets/images/send.png';
     String settings = 'assets/images/settings.png';
+    String search = 'assets/images/search.png';
 }

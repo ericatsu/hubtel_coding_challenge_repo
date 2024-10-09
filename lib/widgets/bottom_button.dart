@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:hubtel_coding_challenge_repo/constants/colors.dart';
 
 class BottomNavItem extends StatelessWidget {
   final String label;
@@ -21,9 +23,7 @@ class BottomNavItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        onTap(); 
-      },
+      onTap: () => onTap(),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -31,13 +31,19 @@ class BottomNavItem extends StatelessWidget {
             imagePath,
             width: iconSize,
             height: iconSize,
-            color: currentIndex == index ? Colors.black : Colors.grey,
+            color: currentIndex == index
+                ? AppColors.textColor
+                : AppColors.labelColor,
           ),
           const SizedBox(height: 4),
           Text(
             label,
-            style: TextStyle(
-              color: currentIndex == index ? Colors.black : Colors.grey,
+            style: GoogleFonts.nunitoSans(
+              fontWeight: currentIndex == index ? FontWeight.w900 : FontWeight.normal,
+              color: currentIndex == index
+                  ? AppColors.textColor
+                  : AppColors.labelColor,
+             fontSize: 13
             ),
           ),
         ],
